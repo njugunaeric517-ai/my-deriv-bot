@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Deriv Bot</title>
+  <style>
+    body {
+      background: #101820;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 25px;
+    }
+    .card {
+      background: #202d3a;
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+    }
+    button {
+      padding: 12px 25px;
+      margin: 8px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #start { background: #16a34a; color: white; }
+    #stop { background: #dc2626; color: white; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>My Deriv Bot</h1>
+    <p>Trading Bot Simulator</p>
+    <h2 id="balance">Demo Balance: $1000</h2>
+    <p id="status">Status: Stopped</p>
+    <button id="start" onclick="startBot()">Start</button>
+    <button id="stop" onclick="stopBot()">Stop</button>
+    <p id="result">Waiting to start...</p>
+  </div>
+
+  <script>
+    let balance = 1000;
+    let running = false;
+    let timer;
+
+    function startBot() {
+      if (running) return;
+      running = true;
+      document.getElementById("status").textContent =
+        "Status: Running simulation";
+
+      timer = setInterval(() => {
+        let change = (Math.random() - 0.5) * 20;
+        balance += change;
+
+        document.getElementById("balance").textContent =
+          "Demo Balance: $" + balance.toFixed(2);
+
+        document.getElementById("result").textContent =
+          "Simulated change: $" + change.toFixed(2);
+      }, 2000);
+    }
+
+    function stopBot() {
+      running = false;
+      clearInterval(timer);
+      document.getElementById("status").textContent =
+        "Status: Stopped";
+      document.getElementById("result").textContent =
+        "Simulation stopped.";
+    }
+  </script>
+</body>
+</html>
